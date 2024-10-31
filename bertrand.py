@@ -78,27 +78,49 @@ def test_intersections():
 #test_intersections()
 
 circles = [
-  [(0, 0), 0.5]
+  [(0, 0), 0.6]
 ]
 
-N = 100
+N = 10000
 L = []
 C = []
+CIRCLE=[(0, 0), 1.0]
+G = 0
+K = 0
+MODE = 1
 for i in range(N):
-    a = random.random() * 4 * np.pi
-    b = random.random() * 4 * np.pi
-    p1 = (np.cos(a), np.sin(a))
-    p2 = (np.cos(b), np.sin(b))
+    p1, p2 = [], []
+    if MODE = 0:
+        p1 = (2.0 * random.random() - 1.0, 2.0 * random.random() - 1.0)
+        p2 = (2.0 * random.random() - 1.0, 2.0 * random.random() - 1.0)
+    elif MODE = 1:
+        a = random.random() * 4 * np.pi
+        b = random.random() * 4 * np.pi
+        p1 = (np.cos(a), np.sin(a))
+        p2 = (np.cos(b), np.sin(b))
 
-    p1 = (2.0 * random.random() - 1.0, 2.0 * random.random() - 1.0)
-    p2 = (2.0 * random.random() - 1.0, 2.0 * random.random() - 1.0)
 
     s = intersections(p1, p2, circles[0])
-    c = (0, 1, 0, 1) if len(s) > 0 else (1, 0, 0, 1)
+    S = circles[0][1] * np.sqrt(3.0)
+    c = (0, 0, 0, 0.4)
+    if len(s) > 0:
+        c = (0, 0, 0, 0.7)
+        if len(s) > 1:
+            p1 = s[0]
+            p2 = s[1]
+            K = K + 1
+            if np.hypot(s[1][0] - s[0][0], s[1][1] - s[0][1]) > S:
+                G = G + 1
+                c = (0, 1, 0, 1)
+            else:
+                c = (1, 0, 0, 1)
+
     L.append([p1, p2])
     C.append(c)
 
 
+print(float(G) / float(K), G, K, N)
+exit()
 lc = mc.LineCollection(L, colors=C, linewidths=0.2)
 fig, ax = pl.subplots()
 ax.add_collection(lc)
