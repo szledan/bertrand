@@ -90,12 +90,18 @@ K = 0
 MODE = 1
 for i in range(N):
     p1, p2 = [], []
-    if MODE = 0:
+    if MODE == 0:
         p1 = (2.0 * random.random() - 1.0, 2.0 * random.random() - 1.0)
         p2 = (2.0 * random.random() - 1.0, 2.0 * random.random() - 1.0)
-    elif MODE = 1:
+    elif MODE == 1: # random endpoints
+        r = CIRCLE[1];
         a = random.random() * 4 * np.pi
         b = random.random() * 4 * np.pi
+        p1 = (r * np.cos(a), r * np.sin(a))
+        p2 = (r * np.cos(b), r * np.sin(b))
+    elif MODE == 2: # random radial point
+        r = CIRCLE[1] * random.random()
+        a = random.random() * 4 * np.pi
         p1 = (np.cos(a), np.sin(a))
         p2 = (np.cos(b), np.sin(b))
 
